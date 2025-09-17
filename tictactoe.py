@@ -3,7 +3,7 @@ functions related to creating, printing,
 and evaluating tic-tac-toe boards
 
 :author: James Lin
-:note: <honor code goes here>
+:note: I affirm that I have carried out the attached academic endeavors with full academic honesty, in accordance with the Union College Honor Code and the course syllabus.
 """
 
 
@@ -101,7 +101,7 @@ def is_winner(board, player):
     :param player: string - "X" or "O"
     :return: True if player won; False if player lost or tied
     """
-    if three_in_row(board, player, 0, 0, 1, 1):
+    if three_in_row(board, player, 0, 0, 1, 1) or three_in_row(board, player, 2,0, -1, 1):
         return True
     else:
         for i in range(0, 3):
@@ -127,13 +127,12 @@ def get_winner(board):
 
 def confirm_result(board, winner):
     """
-    Checks if the actual result is the same as the expected result.
+    Checks if the actual result is the same as the expected result and prints the result.
     :param board: list of row strings
     :param winner: the expected result for the tictactoe
-    :return:
     """
     if get_winner(board) == winner:
-        print("PASS")
+        print(f"PASS: {winner} ")
     else:
         print(f"FAIL: Expected {winner} but got {get_winner(board)}")
 
@@ -151,6 +150,25 @@ def main():
     print_board(board2)
     confirm_result(board2, None)
 
+def main2():
+    board1 = ["XXX",
+              "OOX", 
+              "XOO"]
+    print_board(board1)
+    confirm_result(board1, 'X')
+
+    board2 = ["XXO",
+              "XOX",
+              "OOX"]
+    print_board(board2)
+    confirm_result(board2, 'O')
+    
+    board3 = ["XXO",
+              "OOX",
+              "XOX"]
+    print_board(board3)
+    confirm_result(board3, None)
+
 
 if __name__ == "__main__":
-    main()
+    main2()
