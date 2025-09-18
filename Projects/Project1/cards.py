@@ -6,7 +6,7 @@ suits = ["Spades","Clubs","Hearts","Diamonds"]
 def create():
     """
     Create a list of cards in tuple form and returns them.
-    :return: a list of tuples
+    :return: a list of tuples that represent cards
     """
     deck = []
     for rank in ranks:
@@ -19,15 +19,20 @@ def create():
 def shuffle(deck):
     """"
     Shuffles the deck.
-    :param deck: a list of tuples
+    :param deck: a list of tuples that represent cards
     """
     random.shuffle(deck)
 
 def deal(deck, n):
+    """
+    Deals n cards from the deck.
+    :param deck: a list of tuples that represent cards
+    :param n: the number of cards to deal
+    :return: the dealed cards
+    """
     hands = []
     for _ in range(n):
         hands.append(deck.pop(0))
-
     return hands
 
 cards = create()

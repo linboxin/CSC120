@@ -7,3 +7,9 @@
 # 5. output first line of the table after dealing 10,000 hands
 
 
+def main():
+    print("Hello World")
+
+
+if __name__ == "__main__":
+    main()
