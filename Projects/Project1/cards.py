@@ -1,0 +1,37 @@
+import random
+
+ranks = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
+suits = ["Spades","Clubs","Hearts","Diamonds"]
+
+def create():
+    """
+    Create a list of cards in tuple form and returns them.
+    :return: a list of tuples
+    """
+    deck = []
+    for rank in ranks:
+        for suit in suits:
+            deck.append((rank, suit))
+    return deck
+
+# print(create())
+
+def shuffle(deck):
+    """"
+    Shuffles the deck.
+    :param deck: a list of tuples
+    """
+    random.shuffle(deck)
+
+def deal(deck, n):
+    hands = []
+    for _ in range(n):
+        hands.append(deck.pop(0))
+
+    return hands
+
+cards = create()
+print(cards, len(cards))
+shuffle(cards)
+deal(cards, 2)
+print(cards, len(cards))
