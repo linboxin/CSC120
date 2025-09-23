@@ -1,4 +1,8 @@
 def print_board(board):
+    """
+    Prints the board on the console
+    :param board: a list of X and O boards
+    """
     num_rows = len(board)
     num_cols = len(board[0])
     for row_num, row in enumerate(board):
@@ -13,26 +17,57 @@ def print_board(board):
 
 
 def row_all_same(board, row):
+    """
+    Checks if the rows are all the same
+    :param board: a list of X and O boards
+    :param row: a list of rows in the board
+    :return: a boolean value
+    """
     return (board[row][0] == board[row][1] == board[row][2])
 
 
 def column_all_same(column):
+    """
+    Checks if the column is the same
+    :param column: a list of column vals
+    :return: a boolean value
+    """
     return (column[0] == column[1] == column[2])
 
 
 def diagonal_all_same(diagonal):
+    """
+    Check if the diagonal is the same
+    :param diagonal: a list of diagnol vals
+    :return: a boolean value
+    """
     return (diagonal[0] == diagonal[1] == diagonal[2])
 
 
 def get_back_slash(board):
+    """
+    Gets the back slashes from the board
+    :param board: a list of X and O boards
+    :return: return the list of back slash only
+    """
     return [board[i][i] for i in range(len(board))]
 
 
 def get_forward_slash(board):
+    """
+    Gets the forward slash from the board
+    :param board: a list of X and O boards
+    :return: return the list of forward slash only
+    """
     return [board[len(board)-i-1][i] for i in range(len(board))]
 
 
 def columns(board):
+    """
+    Gets the columns of the board
+    :param board: a list of X and O boards
+    :return: a list of columns of the board
+    """
     num_cols = len(board[0])
     num_rows = len(board)
     
@@ -46,8 +81,12 @@ def columns(board):
     return to_return
 
 
-def check_winner(winner, board):
-
+def check_winner(board):
+    """
+    Check for the winner of the board
+    :param board: a list of X and O boards
+    :return: the winner of the board
+    """
     for row_num, row in enumerate(board):
         if row_all_same(board, row_num):
             winner = board[row_num][0]
@@ -68,6 +107,11 @@ def check_winner(winner, board):
 
 
 def get_board_from_file(filename):
+    """
+    Create a list of boards from a file
+    :param filename: the name of the file
+    :return: a list of boards
+    """
     board_list = []
     board_file = open(filename,"r")
     for line in board_file:
@@ -81,8 +125,7 @@ def main():
 
     print_board(board)
 
-    winner = ''
-    winner = check_winner(winner, board)
+    winner = check_winner(board)
 
     if winner != '':
         print(winner + ' WINS!!!!')
