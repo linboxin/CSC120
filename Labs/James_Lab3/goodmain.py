@@ -1,3 +1,10 @@
+"""Tic tac toe helper functions
+
+Author: James Lin
+Honor Code: I affirm that I have carried out the attached academic endeavors with full academic honesty,
+in accordance with the Union College Honor Code and the course syllabus.
+"""
+
 def print_board(board):
     """
     Prints the board on the console
@@ -134,3 +141,16 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+"""
+Reflection: 
+1. Why is the logic inside badmain's main-line code ambiguous and hard to follow?
+The logic inside badmain's main-line code is hard to follow because of the helper functions not actually utilizing their parameters. Instead they are using global variables,
+this is not a good way to write code, especially in the industry, when you have to work as a team on a project. The global variables will cause many confusions and hard to track.
+
+2) How does my refactoring remove this ambiguity?
+Now all my helper functions uses its parameters instead of global variables. The main function is also way easier to track and understand after removing all the messy variables. 
+
+"""
