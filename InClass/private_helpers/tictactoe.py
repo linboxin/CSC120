@@ -2,7 +2,7 @@
 Tic-Tac-Toe utilities
 """
 
-def remove_blank_lines(list_of_strings):
+def __remove_blank_lines(list_of_strings):
     """
     Remove empty strings from a list of strings.
     Non-destructive (does not alter original list).
@@ -37,11 +37,11 @@ def get_board_from_file(filename):
         board_list.append(line.strip())
     board_file.close()
 
-    board_list = remove_blank_lines(board_list)
+    board_list = __remove_blank_lines(board_list)
     return board_list
 
 
-def print_row(row):
+def __print_row(row):
     """
     Nicely prints a row of the board.
 
@@ -63,12 +63,12 @@ def print_board(board):
     """
     for i in range(0,len(board)):
         row = board[i]
-        print_row(row)
+        __print_row(row)
         if i != len(board) - 1:
             print('----------')
 
 
-def three_in_row(board, player, start_x, start_y, dx, dy):
+def __three_in_row(board, player, start_x, start_y, dx, dy):
     """
     Determines if a player has three in a row, starting
     from a starting position (start_x, start_y) and going
@@ -103,14 +103,14 @@ def is_winner(board, player):
     :param player: string - "X" or "O"
     :return: True if player won; False if player lost or tied
     """
-    if three_in_row(board, player, 0, 0, 1, 1):
+    if __three_in_row(board, player, 0, 0, 1, 1):
         return True
-    elif three_in_row(board, player, 2, 0, -1, 1):
+    elif __three_in_row(board, player, 2, 0, -1, 1):
         return True
     else:
         for i in range(0, 3):
-            if (three_in_row(board, player, 0, i, 1, 0)
-                    or three_in_row(board, player, i, 0, 0, 1)):
+            if (__three_in_row(board, player, 0, i, 1, 0)
+                    or __three_in_row(board, player, i, 0, 0, 1)):
                 return True
         return False
 
@@ -130,7 +130,7 @@ def get_winner(board):
         return None
 
 
-def confirm_result(board,winner):
+def __confirm_result(board, winner):
     """
     testing function
 
@@ -154,7 +154,7 @@ def main():
     for index, filename in enumerate(files):
         board = get_board_from_file(filename)
         expected = answers[index]
-        confirm_result(board, expected)
+        __confirm_result(board, expected)
 
 
 if __name__ == "__main__":
