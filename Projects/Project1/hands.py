@@ -4,7 +4,7 @@
 # • Pair (includes pair and three-of-a-kind)
 # • High card (includes high card and straight). Ace has the highest rank and Two has the lowest.
 
-def isFlush(hands):
+def is_flush(hands):
     """
     Check if a hand is a flush, all cards same suit.
     :param hands: list of 5 cards as tuples (rank, suit)
@@ -17,17 +17,17 @@ def isFlush(hands):
     return len(removed) == 1
 
 
-def isStraight(hands):
+def is_straight(hands):
     """
     Check if a hand is a straight, consecutive cards.
     :param hands: list of 5 cards as tuples (rank, suit)
     :return: a boolean value
     """
-    rankOrder = {"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13, "A": 14}
+    rank_order = {"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13, "A": 14}
     ranks = []
     for card in hands:
         rank = card[0]
-        ranks.append(rankOrder[rank])
+        ranks.append(rank_order[rank])
 
     ranks.sort()
     for i in range(4):
@@ -36,7 +36,7 @@ def isStraight(hands):
     return True
 
 
-def rankCounts(hands):
+def rank_counts(hands):
     """
     Count how many cards of each rank are in the hand.
     :param hands: list of 5 cards as tuples (rank, suit)
@@ -54,25 +54,25 @@ def rankCounts(hands):
     return counts
 
 
-def isFourOfAKind(hands):
+def is_four_of_a_kind(hands):
     """
     Check if a hand has four cards of the same rank.
     :param hands: list of 5 cards as tuples (rank, suit)
     :return: a boolean value
     """
-    counts = rankCounts(hands)
+    counts = rank_counts(hands)
     if 4 in counts.values():
         return True
     return False
 
 
-def isFullHouse(hands):
+def is_full_house(hands):
     """
     Check if a hand has three of one rank and two of another.
     :param hands: list of 5 cards as tuples (rank, suit)
     :return: a boolean value
     """
-    counts = rankCounts(hands).values()
+    counts = rank_counts(hands).values()
     three = False
     two = False
 
@@ -85,19 +85,19 @@ def isFullHouse(hands):
     return three and two
 
 
-def isThreeOfAKind(hands):
+def is_three_of_a_kind(hands):
     """
     Check if a hand has exactly three cards of the same rank.
     :param hands: list of 5 cards as tuples (rank, suit)
     :return: a boolean value
     """
-    counts = rankCounts(hands).values()
-    if 3 in counts and not isFullHouse(hands):
+    counts = rank_counts(hands).values()
+    if 3 in counts and not is_full_house(hands):
         return True
     return False 
 
 
-def hasPairs(hands, n):
+def has_pairs(hands, n):
     """
     Check if a hand has exactly n pairs.
 
@@ -106,12 +106,12 @@ def hasPairs(hands, n):
     :param n: number of pairs to check
     :return: a boolean value
     """
-    counts = rankCounts(hands)
-    pairCount = 0
+    counts = rank_counts(hands)
+    pair_count = 0
     for value in counts.values():
         if value == 2:
-            pairCount += 1
-    return pairCount == n
+            pair_count += 1
+    return pair_count == n
 
 
 def evaluate(hands):
@@ -121,16 +121,16 @@ def evaluate(hands):
     :param hands: list of 5 cards as tuples (rank, suit)
     :return: string representing the hand category
     """
-    flush = isFlush(hands)
-    straight = isStraight(hands)
+    flush = is_flush(hands)
+    straight = is_straight(hands)
 
     if flush and straight:
         return "flush"  
     elif flush:
         return "flush"
-    elif isFourOfAKind(hands) or isFullHouse(hands) or hasPairs(hands, 2):
+    elif is_four_of_a_kind(hands) or is_full_house(hands) or has_pairs(hands, 2):
         return "two pair"
-    elif isThreeOfAKind(hands) or hasPairs(hands, 1):
+    elif is_three_of_a_kind(hands) or has_pairs(hands, 1):
         return "pair"
     else:
         return "high card"  

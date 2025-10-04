@@ -26,7 +26,7 @@ def create():
 
 
 def shuffle(deck):
-    """"
+    """
     Shuffles the deck.
     :param deck: a list of tuples that represent cards
     """
