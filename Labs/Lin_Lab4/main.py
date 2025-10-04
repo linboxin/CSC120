@@ -1,15 +1,19 @@
 from die import *
 
+
 def main():
-    dice_1 = Die(6)
-    dice_test = Die()
-    print(dice_test.get_sides())
+    """
+    Runs a die game with a D6 and D12.
+    
+    The game continues until one die is twice the value of the other. The game will continue to roll when users press Enter
+    """
+    dice_1 = Die()  
     dice_2 = Die(12)
     game_over = False
     winner = ""
 
-    while game_over != True: 
-        user_response = input()
+    while not game_over: 
+        user_response = input("Press Enter to roll the dice: ")
         if user_response == "":
             dice_1.roll()
             dice_2.roll()
