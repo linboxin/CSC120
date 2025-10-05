@@ -16,9 +16,10 @@ class Deck:
         random.shuffle(self.__deck)
 
     def deal(self):
-        if not self.__deck:
+        if len(self.__deck) == 0:
             return None
-        return self.__deck.pop(0)
+        else:
+            return self.__deck.pop(0)
 
     def size(self):
         return len(self.__deck)
