@@ -1,8 +1,8 @@
 import random
 from card import Card
 
-RANKS = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
-SUITS = ["S","C","H","D"]
+RANKS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+SUITS = ["S", "C", "H", "D"]
 
 class Deck:
 
@@ -30,7 +30,7 @@ class Deck:
             s += str(card) + "\n"
         return s
 
-if __name__ == "__main__":
-    deck = Deck()
-    print(deck.size())
-    print(deck)
+# if __name__ == "__main__":
+#     deck = Deck()
+#     print(deck.size())
+#     print(deck)

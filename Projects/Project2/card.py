@@ -29,8 +29,8 @@ class Card:
 
 
 
-if __name__ == "__main__":
-    card1 = Card(12, "D")
-    card2 = Card(10, "S")
-    print(card1)  
-    print(card2)  
+# if __name__ == "__main__":
+#     card1 = Card(12, "D")
+#     card2 = Card(10, "S")
+#     print(card1)  
+#     print(card2)  

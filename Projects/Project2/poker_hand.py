@@ -7,7 +7,7 @@
 from card import Card
 
 
-_CATEGORY_VALUE = {
+CATEGORY_VALUE = {
     "flush": 3,
     "two pair": 2,
     "pair": 1,
@@ -49,11 +49,9 @@ class PokerHand:
         Check if this hand is a straight, consecutive cards.
         :return: a boolean value
         """
-        rank_order = {"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13, "A": 14}
         ranks = []
         for card in self.cards:
-            rank = card.get_rank()
-            ranks.append(rank_order[rank])
+            ranks.append(card.get_rank())
 
         ranks.sort()
         for i in range(4):
@@ -156,7 +154,16 @@ class PokerHand:
             return "high card"  
 
 
-
+    def __get_rank_values(self):
+        """
+        Get numeric rank values for all cards in this hand, sorted descending.
+        :return: list of numeric rank values
+        """
+        ranks = []
+        for card in self.cards:
+            ranks.append(card.get_rank())
+        ranks.sort(reverse=True)
+        return ranks
 
     def compare_to(self, other_hand):
         """
@@ -171,22 +178,39 @@ class PokerHand:
         """
    
         my_category = self.__evaluate()
-        my_value = _CATEGORY_VALUE[my_category]
+        my_value = CATEGORY_VALUE[my_category]
     
         other_category = other_hand.__evaluate()
-        other_value = _CATEGORY_VALUE[other_category]
+        other_value = CATEGORY_VALUE[other_category]
       
-        return my_value - other_value
+
+        category_diff = my_value - other_value
+        if category_diff != 0:
+            return category_diff
+        
+        my_ranks = self.__get_rank_values()
+        other_ranks = other_hand.__get_rank_values()
+        
+        for i in range(len(my_ranks)):
+            if my_ranks[i] != other_ranks[i]:
+                return my_ranks[i] - other_ranks[i]
+     
+        return 0
 
 
 
-if __name__ == "__main__":
-    flush_hand = [Card("2", "H"), Card("5", "H"), Card("9", "H"), Card("K", "H"), Card("A", "H")]
-    hand1 = PokerHand(flush_hand)
-    result1 = hand1._PokerHand__evaluate()
-    print(f"Flush test: {result1}")
+# if __name__ == "__main__":
+#     flush_hand = [Card("2", "H"), Card("5", "H"), Card("9", "H"), Card("K", "H"), Card("A", "H")]
+#     hand1 = PokerHand(flush_hand)
+#     result1 = hand1._PokerHand__evaluate() 
+#     print(f"Flush test: {result1}")
 
-    full_house_hand = [Card("7", "H"), Card("7", "D"), Card("7", "C"), Card("K", "S"), Card("K", "H")]
-    hand8 = PokerHand(full_house_hand)
-    result8 = hand8._PokerHand__evaluate()
-    print(f"Full house test: {result8}")
+#     full_house_hand = [Card("7", "H"), Card("7", "D"), Card("7", "C"), Card("K", "S"), Card("K", "H")]
+#     hand8 = PokerHand(full_house_hand)
+#     result8 = hand8._PokerHand__evaluate()
+#     print(f"Full house test: {result8}")
+
+#     high_card_hand = [Card("2", "D"), Card("5", "C"), Card("7", "H"), Card("9", "S"), Card("J", "D")]
+#     hand_high = PokerHand(high_card_hand)
+#     comparison = hand1.compare_to(hand_high)
+#     print(f"Compare flush to high card: {comparison} (positive means flush wins)")
