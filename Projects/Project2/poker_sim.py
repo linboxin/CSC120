@@ -1,4 +1,7 @@
 """
+Author: James Lin   
+Date: 10/5/2025
+
 I affirm that I have carried out the attached academic endeavors with full academic honesty,
 in accordance with the Union College Honor Code and the course syllabus.
 """
@@ -9,7 +12,13 @@ from poker_hand import PokerHand
 
 HAND_SIZE = 5
 
+
 def deal_two_hands(deck):
+    """
+    Deal two hands from the deck.
+    :param deck: the deck to deal from
+    :return: two lists of cards
+    """
     cards1 = []
     cards2 = []
     for _ in range(HAND_SIZE):
@@ -30,6 +39,7 @@ def main():
     deck = Deck()
     deck.shuffle()
     game_count = 1
+    win_rate = 0
 
     
     while deck.size() >= HAND_SIZE * 2:
@@ -63,6 +73,7 @@ def main():
         player_guess = int(player_guess)
         if player_guess == actual_winner:
             print(f"Correct! {result_msg}")
+            win_rate += 1
         else:
             print(f"Incorrect. {result_msg}")
 
@@ -74,8 +85,7 @@ def main():
     
     print("=" * 50)
     print(f"Game Over! Not enough cards left to play another round.")
-    print(f"You played {game_count - 1} rounds.")
-        
+    print(f"You played {game_count - 1} rounds and won {win_rate} times")
 
 
 

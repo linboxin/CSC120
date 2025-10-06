@@ -13,18 +13,33 @@ class Deck:
                 self.__deck.append(Card(rank, suit))
 
     def shuffle(self):
+        """
+        Shuffles the deck.
+        """
         random.shuffle(self.__deck)
 
     def deal(self):
+        """
+        Deals a card from the deck.
+        :return: the card dealt
+        """
         if len(self.__deck) == 0:
             return None
         else:
             return self.__deck.pop(0)
 
     def size(self):
+        """
+        Get the size of the deck.
+        :return: the size of the deck
+        """
         return len(self.__deck)
 
     def __str__(self):
+        """
+        Return a string representation of the deck.
+        :return: a string representation of the deck
+        """
         s = ""
         for card in self.__deck:
             s += str(card) + "\n"

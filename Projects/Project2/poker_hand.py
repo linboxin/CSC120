@@ -19,14 +19,27 @@ class PokerHand:
         self.cards = cards.copy() 
 
     def add_card(self, card):
+        """
+        Add a card to the hand.
+        :param card: the card to add
+        """
         self.cards.append(card)
 
     def get_ith_card(self, i):
+        """
+        Get the i-th card from the hand.
+        :param i: the index of the card to get
+        :return: the card at index i
+        """
         if 0 <= i < len(self.cards):
             return self.cards[i]
         return None
 
     def __str__(self):
+        """
+        Return a string representation of the hand.
+        :return: a string representation of the hand 
+        """
         s = ""
         for card in self.cards:
             s += str(card) + "\n"
@@ -35,7 +48,7 @@ class PokerHand:
     def __is_flush(self):
         """
         Check if this hand is a flush, all cards same suit.
-        :return: a boolean value
+        :return: a boolean value indicating if the hand is a flush
         """
         suits = []
         for card in self.cards:
@@ -47,7 +60,7 @@ class PokerHand:
     def __is_straight(self):
         """
         Check if this hand is a straight, consecutive cards.
-        :return: a boolean value
+        :return: a boolean value indicating if the hand is a straight
         """
         ranks = []
         for card in self.cards:
@@ -80,7 +93,7 @@ class PokerHand:
     def __is_four_of_a_kind(self):
         """
         Check if this hand has four cards of the same rank.
-        :return: a boolean value
+        :return: a boolean value indicating if the hand has four cards of the same rank
         """
         counts = self.__rank_counts()
         if 4 in counts.values():
@@ -91,7 +104,7 @@ class PokerHand:
     def __is_full_house(self):
         """
         Check if this hand has three of one rank and two of another.
-        :return: a boolean value
+        :return: a boolean value indicating if the hand has three of one rank and two of another
         """
         counts = self.__rank_counts().values()
         three = False
@@ -109,7 +122,7 @@ class PokerHand:
     def __is_three_of_a_kind(self):
         """
         Check if this hand has exactly three cards of the same rank.
-        :return: a boolean value
+        :return: a boolean value indicating if the hand has exactly three cards of the same rank
         """
         counts = self.__rank_counts().values()
         if 3 in counts and not self.__is_full_house():
@@ -123,7 +136,7 @@ class PokerHand:
 
         precondition: n is a positive integer and n <= 2
         :param n: number of pairs to check
-        :return: a boolean value
+        :return: a boolean value indicating if the hand has exactly n pairs
         """
         counts = self.__rank_counts()
         pair_count = 0
@@ -154,17 +167,6 @@ class PokerHand:
             return "high card"  
 
 
-    def __get_rank_values(self):
-        """
-        Get numeric rank values for all cards in this hand, sorted descending.
-        :return: list of numeric rank values
-        """
-        ranks = []
-        for card in self.cards:
-            ranks.append(card.get_rank())
-        ranks.sort(reverse=True)
-        return ranks
-
     def compare_to(self, other_hand):
         """
         Determines which of two poker hands is worth more. Returns an int
@@ -188,12 +190,26 @@ class PokerHand:
         if category_diff != 0:
             return category_diff
         
-        my_ranks = self.__get_rank_values()
-        other_ranks = other_hand.__get_rank_values()
+        my_counts = self.__rank_counts()
+        other_counts = other_hand.__rank_counts()
         
-        for i in range(len(my_ranks)):
-            if my_ranks[i] != other_ranks[i]:
-                return my_ranks[i] - other_ranks[i]
+        my_list = []
+        for rank in my_counts:
+            my_list.append((my_counts[rank], rank))
+        
+        other_list = []
+        for rank in other_counts:
+            other_list.append((other_counts[rank], rank))
+        
+        my_list.sort(reverse=True)
+        other_list.sort(reverse=True)
+        
+        for i in range(len(my_list)):
+            my_rank = my_list[i][1]
+            other_rank = other_list[i][1]
+            
+            if my_rank != other_rank:
+                return my_rank - other_rank
      
         return 0
 
@@ -203,14 +219,4 @@ class PokerHand:
 #     flush_hand = [Card("2", "H"), Card("5", "H"), Card("9", "H"), Card("K", "H"), Card("A", "H")]
 #     hand1 = PokerHand(flush_hand)
 #     result1 = hand1._PokerHand__evaluate() 
-#     print(f"Flush test: {result1}")
-
-#     full_house_hand = [Card("7", "H"), Card("7", "D"), Card("7", "C"), Card("K", "S"), Card("K", "H")]
-#     hand8 = PokerHand(full_house_hand)
-#     result8 = hand8._PokerHand__evaluate()
-#     print(f"Full house test: {result8}")
-
-#     high_card_hand = [Card("2", "D"), Card("5", "C"), Card("7", "H"), Card("9", "S"), Card("J", "D")]
-#     hand_high = PokerHand(high_card_hand)
-#     comparison = hand1.compare_to(hand_high)
-#     print(f"Compare flush to high card: {comparison} (positive means flush wins)")
+#     print(result1)

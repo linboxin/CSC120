@@ -17,12 +17,24 @@ class Card:
         self.__card = {"rank": rank, "suit": suit} 
 
     def get_rank(self):
+        """
+        Get the rank of the card.
+        :return: the rank of the card
+        """
         return self.__card["rank"]
 
     def get_suit(self):
+        """
+        Get the suit of the card.
+        :return: the suit of the card
+        """
         return self.__card["suit"]
 
     def __str__(self):
+        """
+        Return a string representation of the card.
+        :return: a string representation of the card
+        """
         rank_str = RANK_NAMES.get(self.get_rank(), str(self.get_rank()))
         suit_str = SUIT_NAMES.get(self.get_suit(), self.get_suit())
         return f"{rank_str} of {suit_str}"
