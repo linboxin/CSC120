@@ -1,5 +1,8 @@
 import java.util.Random;
 
+/**
+ * A die with a fixed number of sides and a current face value. The die is mutable.
+ */
 public class Die {
     private final int DEFUALT_SIDES = 6;
     private final int DEFUALT_VALUE = 1;
@@ -19,20 +22,19 @@ public class Die {
     }
 
     /**
-     * Constructs a new Die object with the default sides value.
+     * Constructs a new die with the default number of sides (6).
      */
     public Die() {
-        this.value = 0;
+        this.value = DEFUALT_VALUE;
         this.sides = DEFUALT_SIDES;
     }
 
-
     /**
-     * Assigns this value to a random number ranging from 1 to 6
+     * Rolls this die, updating its value to a random integer in [1, sides].
      */
     public void roll(){
         Random r = new Random();
-        this.value = r.nextInt(DEFUALT_SIDES - DEFUALT_VALUE + 1) + DEFUALT_VALUE;
+        this.value = r.nextInt(this.sides) + 1;
     }
 
     /**
@@ -42,6 +44,9 @@ public class Die {
     public int getValue(){
         return this.value;
     }
+
+
+
 //
 //    /**
 //     * @return this.sides The current side of the dice

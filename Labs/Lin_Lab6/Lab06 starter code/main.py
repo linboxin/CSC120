@@ -79,12 +79,10 @@ def main():
     sortOne = sort1
     sortTwo = sort2
     kinds=["random","sort", "reverse-sorted", "identical"]
-    lengths=[10,20,30,40,80,100,120, 160, 500, 1000]
+    lengths=[10,20,40,80,160,320,640,1280,2560,5120]
+    lengths_two=[1000,1500,2000,3000,4000,5500,7000,9000,11000,13000]
 
     run_sort(sortOne,kinds,lengths)
-
-
-
-    run_sort(sortTwo,kinds,lengths)
+    run_sort(sortTwo,kinds,lengths_two)
 
 main()
