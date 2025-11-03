@@ -11,8 +11,8 @@ public class DeckTests {
 		inOrder();
 		shuffledOrder();
 		dealThenShuffle();
-//		gatherTest();
-//		gatherRemainingTest();
+		gatherTest();
+		gatherRemainingTest();
 	}
 	
 	/**

@@ -79,7 +79,15 @@ public class Deck {
      */
     public void gather()
     {
-
+        theCards.clear();
+        
+        for(int i=0; i<NUMBER_OF_SUITS; i++){
+            for(int j=2; j<CARDS_IN_SUIT+2; j++){
+                theCards.add(new Card(j,i));
+            }
+        }
+        
+        shuffled = false;
     }
     
     /** 
