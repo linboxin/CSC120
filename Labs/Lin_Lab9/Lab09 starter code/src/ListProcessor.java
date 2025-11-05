@@ -19,17 +19,6 @@ public class ListProcessor
      * @param aList the list in which to find the minimum element.
      * @return the minimum element of the list.
      */
-//    public String getMin(ArrayList<String> aList)
-//    {
-//        String minElement = aList.get(0);
-//        for (int i = 1; i < aList.size(); i++) {
-//            if (aList.get(i).compareTo(minElement) < 0) {
-//                minElement = aList.get(i);
-//            }
-//        }
-//        return minElement;
-//    }
-
     private String getMin(ArrayList<String> aList, int startingIndex)
     {
         if (startingIndex == aList.size()-1) {
@@ -42,6 +31,12 @@ public class ListProcessor
 
     }
 
+    /**
+     * Returns the minimum element in the list.
+     * 
+     * @param aList the list to search
+     * @return the minimum element
+     */
     public String getMin(ArrayList<String> aList){
         return getMin(aList, 0);
     }
@@ -55,48 +50,54 @@ public class ListProcessor
      * @param aList the list in which to find the minimum element.
      * @return the index of the minimum element in the list.
      */
+    private int getMinIndex(ArrayList<String> aList, int startingIndex)
+    {
+        if (startingIndex == aList.size() - 1) {
+            return startingIndex;
+        }
+        if (aList.get(startingIndex).compareTo(aList.get(getMinIndex(aList, startingIndex + 1))) <= 0) {
+            return startingIndex;
+        } else {
+            return getMinIndex(aList, startingIndex + 1);
+        }
+    }
+    
+    /**
+     * Returns the index of the minimum element in the list.
+     * 
+     * @param aList the list to search
+     * @return the index of the first occurrence of the minimum element
+     */
     public int getMinIndex(ArrayList<String> aList)
     {
-        int minIndex = 0;
-        for (int i = 1; i < aList.size(); i++) {
-            if (aList.get(i).compareTo(aList.get(minIndex)) < 0) {
-                minIndex = i;
-            }
-        }
-        return minIndex;
+        return getMinIndex(aList, 0);
     }
-
-//    private int getMinIndex(ArrayList<String> aList, int startingIndex){
-//       if (startingIndex == aList.size() -1) {
-//           return 0;
-//       } else if (aList.get(startingIndex).compareTo(aList.get()) < 0) {
-//          return getMinIndex(aList, startingIndex + 1);
-//       }
-//   }
-//
-//
-//
-//    public int getMinIndex(ArrayList<String> aList){
-//        return getMinIndex(aList, 0);
-//    }
+    
 
     /**
      * Sorts a list in place. I.E. the list is modified so that it is in order.
      *
      * @param aList: the list to sort.
      */
-    public void sort(ArrayList<String> aList)
+    private void sort(ArrayList<String> aList, int startingIndex)
     {
-        if (aList.size() == 0) {
+        if (startingIndex >= aList.size() - 1) {
             return;
         }
-        else {
-            int minIndex = getMinIndex(aList);
-            swap(aList, minIndex, 0);
-            sort(new ArrayList<String>(aList.subList(1, aList.size())));
-        }
-
-
+        
+        swap(aList, getMinIndex(aList, startingIndex), startingIndex);
+        
+        sort(aList, startingIndex + 1);
+    }
+    
+    /**
+     * Sorts the list in alphabetical order using selection sort.
+     * 
+     * @param aList the list to sort (modified in place)
+     */
+    public void sort(ArrayList<String> aList)
+    {
+        sort(aList, 0);
     }
 }
     
