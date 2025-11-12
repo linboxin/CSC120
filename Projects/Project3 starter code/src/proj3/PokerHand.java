@@ -1,6 +1,11 @@
-package proj3;
+package proj3; // do not erase. Gradescope expects this.
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Collections;
 
 /**
  * Represents a poker hand of cards and can evaluate and compare it to other hands.
@@ -15,17 +20,6 @@ public class PokerHand implements Comparable<PokerHand> {
             Map.entry("pair", 1),
             Map.entry("high card", 0)
     );
-
-    private static final Comparator<int[]> COMPARATOR = new Comparator<int[]>() {
-        @Override
-        public int compare(int[] a, int[] b) {
-            if (a[0] != b[0]) {
-                return b[0] - a[0];
-            }
-            return b[1] - a[1];
-        }
-    };
-
 
     /**
      * Constructs a PokerHand with the given cards.
@@ -182,7 +176,6 @@ public class PokerHand implements Comparable<PokerHand> {
         }
     }
 
-
     /**
      * Determines how this hand compares to another hand, returns
      * positive, negative, or zero depending on the comparison.
@@ -217,8 +210,19 @@ public class PokerHand implements Comparable<PokerHand> {
             otherList.add(new int[]{entry.getValue(), entry.getKey()});
         }
 
-        Collections.sort(myList, COMPARATOR);
-        Collections.sort(otherList, COMPARATOR);
+        myList.sort((a, b) -> {
+            if (a[0] != b[0]) {
+                return b[0] - a[0];
+            }
+            return b[1] - a[1];
+        });
+
+        otherList.sort((a, b) -> {
+            if (a[0] != b[0]) {
+                return b[0] - a[0];
+            }
+            return b[1] - a[1];
+        });
 
         for (int i = 0; i < myList.size(); i++) {
             int myRank = myList.get(i)[1];
@@ -231,7 +235,6 @@ public class PokerHand implements Comparable<PokerHand> {
 
         return 0;
     }
-
 
 
 }

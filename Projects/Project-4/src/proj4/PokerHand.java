@@ -26,6 +26,8 @@ public class PokerHand implements Comparable<PokerHand> {
         }
     };
 
+    private final int MAX_CARDS = 5;
+
 
     /**
      * Constructs a PokerHand with the given cards.
@@ -40,7 +42,7 @@ public class PokerHand implements Comparable<PokerHand> {
      * @param card the card to add
      */
     public void addCard(Card card) {
-        if (cards.size() < 5) {
+        if (cards.size() < MAX_CARDS) {
             cards.add(card);
         }
     }
@@ -54,7 +56,9 @@ public class PokerHand implements Comparable<PokerHand> {
         if (i >= 0 && i < cards.size()) {
             return cards.get(i);
         }
-        return null;
+        else{
+            return null;
+        }
     }
 
 
@@ -202,34 +206,35 @@ public class PokerHand implements Comparable<PokerHand> {
         int categoryDiff = myValue - otherValue;
         if (categoryDiff != 0) {
             return categoryDiff;
-        }
+        }else{
+            Map<Integer, Integer> myCounts = this.rankCounts();
+            Map<Integer, Integer> otherCounts = other.rankCounts();
 
-        Map<Integer, Integer> myCounts = this.rankCounts();
-        Map<Integer, Integer> otherCounts = other.rankCounts();
-
-        List<int[]> myList = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> entry : myCounts.entrySet()) {
-            myList.add(new int[]{entry.getValue(), entry.getKey()});
-        }
-
-        List<int[]> otherList = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> entry : otherCounts.entrySet()) {
-            otherList.add(new int[]{entry.getValue(), entry.getKey()});
-        }
-
-        Collections.sort(myList, COMPARATOR);
-        Collections.sort(otherList, COMPARATOR);
-
-        for (int i = 0; i < myList.size(); i++) {
-            int myRank = myList.get(i)[1];
-            int otherRank = otherList.get(i)[1];
-
-            if (myRank != otherRank) {
-                return myRank - otherRank;
+            List<int[]> myList = new ArrayList<>();
+            for (Map.Entry<Integer, Integer> entry : myCounts.entrySet()) {
+                myList.add(new int[]{entry.getValue(), entry.getKey()});
             }
-        }
 
-        return 0;
+            List<int[]> otherList = new ArrayList<>();
+            for (Map.Entry<Integer, Integer> entry : otherCounts.entrySet()) {
+                otherList.add(new int[]{entry.getValue(), entry.getKey()});
+            }
+
+            Collections.sort(myList, COMPARATOR);
+            Collections.sort(otherList, COMPARATOR);
+
+            for (int i = 0; i < myList.size(); i++) {
+                int myRank = myList.get(i)[1];
+                int otherRank = otherList.get(i)[1];
+
+                if (myRank != otherRank) {
+                    return myRank - otherRank;
+                }
+            }
+
+            return 0;
+        }
+      
     }
 
 

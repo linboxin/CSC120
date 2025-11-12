@@ -5,6 +5,7 @@ import java.util.*;
 
 public class CommunityCardSet {
 
+    public static final int MAX_CARD_NUM = 5;
     private ArrayList<Card> cards;
 
     public CommunityCardSet(ArrayList<Card> cards) {
@@ -16,7 +17,7 @@ public class CommunityCardSet {
      * @param card the card to add
      */
     public void addCard(Card card) {
-        if (cards.size() < 5) {
+        if (cards.size() < MAX_CARD_NUM) {
             cards.add(card);
         }
     }
@@ -34,8 +35,8 @@ public class CommunityCardSet {
     }
 
     /**
-     * Returns the community cards as a single line separated by " | ".
-     * Example: "Queen of Spades | 5 of Diamonds | 2 of Spades | 6 of Clubs | 7 of Diamonds"
+     * Returns the community cards as a single line separated by  | .
+     * Example: "King of Spades | 6 of Clubs | 7 of Diamonds"
      */
     public String toString() {
         if (cards == null || cards.isEmpty()) {

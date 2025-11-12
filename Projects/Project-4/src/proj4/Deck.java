@@ -34,8 +34,8 @@ public class Deck {
      * Shuffles the deck by swapping each card with another at random index
      */
     public void shuffle() {
-        for (int i = 0; i < deck.size(); i++) {
-            int randomIndex = ThreadLocalRandom.current().nextInt(deck.size());
+        for (int i = nextToDeal; i < deck.size(); i++) {
+            int randomIndex = ThreadLocalRandom.current().nextInt(nextToDeal, deck.size());
             Card temp = deck.get(i);
             deck.set(i, deck.get(randomIndex));
             deck.set(randomIndex, temp);
@@ -64,11 +64,13 @@ public class Deck {
      * @return the next undealt card, or null if there are no undealt cards
      */
     public Card deal(){
-        if (isEmpty()) return null;
-
-        Card card =  deck.get(nextToDeal);
-        nextToDeal++;
-        return card;
+        if (isEmpty()) {
+            return null;
+        }else{
+            Card card =  deck.get(nextToDeal);
+            nextToDeal++;
+            return card;
+        }
     }
 
     /**
