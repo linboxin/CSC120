@@ -1,3 +1,11 @@
+/**
+ * I affirm that I have carried out the attached academic endeavors with full academic honesty, in
+ * accordance with the Union College Honor Code and the course syllabus.
+ * @author: James Lin
+ */
+
+
+
 package proj4;
 
 import java.util.ArrayList;
@@ -12,16 +20,43 @@ import java.util.Scanner;
 
 public class Client {
 
+
+    /**
+     * Deals 5 community cards from the deck and creates a community card set.
+     * @param deck the deck to deal from
+     * @return a community card set with 5 cards
+     */
+    private static CommunityCardSet dealCommunityCards(Deck deck) {
+        ArrayList<Card> communityCardList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            communityCardList.add(deck.deal());
+        }
+        return new CommunityCardSet(communityCardList);
+    }
+
+    /**
+     * Checks if the users input correctly identifies the winner.
+     * @param input the users input ("a", "b", or " ")
+     * @param comparison the result of handA.compareTo(handB)
+     * @return true if they are acutally equal, false otherwise
+     */
+    private static boolean isCorrectGuess(String input, int comparison) {
+        if (input.equals("a")) {
+            return comparison > 0;
+        } else if (input.equals("b")) {
+            return comparison < 0;
+        } else if (input.equals(" ") || input.equals("")) {
+            return comparison == 0;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Deck deck = new Deck();
         deck.shuffle();
 
-        ArrayList<Card> communityCardList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            communityCardList.add(deck.deal());
-        }
-        CommunityCardSet communityCards = new CommunityCardSet(communityCardList);
+        CommunityCardSet communityCards = dealCommunityCards(deck);
 
         int score = 0;
         boolean playing = true;
@@ -57,17 +92,7 @@ public class Client {
             System.out.println("got input: " + input);
 
             int comparison = handA.compareTo(handB);
-            boolean correct = false;
-
-            if (input.equals("a") && comparison > 0) {
-                correct = true;
-            } else if (input.equals("b") && comparison < 0) {
-                correct = true;
-            } else if (input.equals(" ") && comparison == 0) {
-                correct = true;
-            } else if (input.equals("") && comparison == 0) {
-                correct = true;
-            }
+            boolean correct = isCorrectGuess(input, comparison);
 
             if (correct) {
                 System.out.println("CORRECT!!!");

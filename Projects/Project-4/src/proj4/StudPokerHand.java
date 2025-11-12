@@ -2,6 +2,9 @@ package proj4;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a 2-card poker hand with access to community cards.
+ */
 public class StudPokerHand{
 
     private final int HOLECARDS_NUM = 2;
@@ -10,15 +13,18 @@ public class StudPokerHand{
     private ArrayList<Card> holeCards;
     private CommunityCardSet communityCardSets;
 
-
-
+    /**
+     * Constructs a stud poker hand with the given community cards and hole cards
+     * @param cc the community card set
+     * @param cardList the hole cards for this hand
+     */
     public StudPokerHand(CommunityCardSet cc, ArrayList<Card> cardList) {
         this.communityCardSets = cc;
         this.holeCards = cardList;
     }
 
     /**
-     * Add a card to the hand. Does nothing if the hand already has 2 cards.
+     * Adds a card to the hole cards. Does nothing if the hand already has 2 cards.
      * @param card the card to add
      */
     public void addCard(Card card) {
@@ -28,7 +34,7 @@ public class StudPokerHand{
     }
 
     /**
-     * Get the i-th card from the hand.
+     * Gets the i-th card from the hole cards.
      * @param i the index of the card to get
      * @return the card at index i, or null if i is invalid
      */
@@ -40,29 +46,40 @@ public class StudPokerHand{
         }
     }
 
+    /**
+     * Gets all seven cards in the hand, including the hole cards and community cards.
+     * @return a list of all cards in the hand
+     */
     private ArrayList<Card> getAllSevenCards() {
         ArrayList<Card> allCards = new ArrayList<>();
 
-        for (int i = 0; i < HOLECARDS_NUM; i++) {
+        for (int i = 0; i < holeCards.size(); i++) {
             allCards.add(holeCards.get(i));
         }
 
         for (int i = 0; i < CommunityCardSet.MAX_CARD_NUM; i++) {
             Card c = communityCardSets.getIthCard(i);
-            allCards.add(c);
+            if (c != null) {
+                allCards.add(c);
+            }
         }
 
         return allCards;
     }
 
+    /**
+     * Gets all possible five card hands from the seven cards in the hand.
+     * @return a list of all possible five card hands
+     */
     private ArrayList<PokerHand> getAllFiveCardHands() {
         ArrayList<Card> sevenCards = getAllSevenCards();
         ArrayList<PokerHand> hands = new ArrayList<>();
+        int numCards = sevenCards.size();
 
-        for (int i = 0; i < TOTAL_CARDS; i++) {
-            for (int j = i + 1; j < TOTAL_CARDS; j++) {
+        for (int i = 0; i < numCards; i++) {
+            for (int j = i + 1; j < numCards; j++) {
                 ArrayList<Card> fiveCards = new ArrayList<>();
-                for (int k = 0; k < TOTAL_CARDS; k++) {
+                for (int k = 0; k < numCards; k++) {
                     fiveCards.add(sevenCards.get(k));
                 }
                 fiveCards.remove(j);
@@ -74,6 +91,10 @@ public class StudPokerHand{
         return hands;
     }
 
+    /**
+     * Gets the best five card hand from the seven cards in the hand.
+     * @return the best five card hand
+     */
     private PokerHand getBestFiveCardHand()
     {
         ArrayList<PokerHand> hands = getAllFiveCardHands();
@@ -86,6 +107,24 @@ public class StudPokerHand{
         return bestSoFar;
     }
 
+    
+    /**
+     * Returns the hole cards separated by comma and space.
+     * Example: "4 of Clubs, 8 of Spades"
+     */
+    public String toString() {
+        if (holeCards == null || holeCards.isEmpty()) {
+            return "";
+        }
+        String result = "";
+        for (int i = 0; i < holeCards.size(); i++) {
+            if (i > 0) {
+                result += ", ";
+            }
+            result += holeCards.get(i).toString();
+        }
+        return result;
+    }
 
     /**
      * Determines how this hand compares to another hand, using the
@@ -108,23 +147,5 @@ public class StudPokerHand{
     }
 
 
-    
-    /**
-     * Returns the hole cards separated by comma and space.
-     * Example: "4 of Clubs, 8 of Spades"
-     */
-    public String toString() {
-        if (holeCards == null || holeCards.isEmpty()) {
-            return "";
-        }
-        String result = "";
-        for (int i = 0; i < holeCards.size(); i++) {
-            if (i > 0) {
-                result += ", ";
-            }
-            result += holeCards.get(i).toString();
-        }
-        return result;
-    }
 
 }

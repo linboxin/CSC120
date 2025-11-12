@@ -2,18 +2,24 @@ package proj4;
 
 import java.util.*;
 
-
+/**
+ * Represents a set of community cards shared by all players in a poker game.
+ */
 public class CommunityCardSet {
 
     public static final int MAX_CARD_NUM = 5;
     private ArrayList<Card> cards;
 
+    /**
+     * Constructs a community card set with the given cards
+     * @param cards the cards in the community set
+     */
     public CommunityCardSet(ArrayList<Card> cards) {
         this.cards = cards;
     }
 
     /**
-     * Add a card to the hand. Does nothing if the hand already has 5 cards.
+     * Adds a card to the community set. Does nothing if the set already has 5 cards.
      * @param card the card to add
      */
     public void addCard(Card card) {
@@ -23,7 +29,7 @@ public class CommunityCardSet {
     }
 
     /**
-     * Get the i-th card from the hand.
+     * Gets the i-th card from the community set.
      * @param i the index of the card to get
      * @return the card at index i, or null if i is invalid
      */

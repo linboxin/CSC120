@@ -223,13 +223,18 @@ public class PokerHand implements Comparable<PokerHand> {
             Collections.sort(myList, COMPARATOR);
             Collections.sort(otherList, COMPARATOR);
 
-            for (int i = 0; i < myList.size(); i++) {
+            int minSize = Math.min(myList.size(), otherList.size());
+            for (int i = 0; i < minSize; i++) {
                 int myRank = myList.get(i)[1];
                 int otherRank = otherList.get(i)[1];
 
                 if (myRank != otherRank) {
                     return myRank - otherRank;
                 }
+            }
+
+            if (myList.size() != otherList.size()) {
+                return myList.size() - otherList.size();
             }
 
             return 0;

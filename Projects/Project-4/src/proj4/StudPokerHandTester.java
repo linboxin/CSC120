@@ -124,6 +124,30 @@ public class StudPokerHandTester {
         Testing.assertTrue("Hand D is better than Hand C", handD.compareTo(handC) > 0);
     }
 
+    public static void testFlushBeatsAces() {
+        Testing.testSection("Testing flush beats pair of aces");
+
+        ArrayList<Card> communityCards = new ArrayList<>();
+        communityCards.add(new Card(2, "Hearts"));
+        communityCards.add(new Card(5, "Hearts"));
+        communityCards.add(new Card(8, "Hearts"));
+        communityCards.add(new Card(10, "Hearts"));
+        communityCards.add(new Card(3, "Clubs"));
+        CommunityCardSet ccs = new CommunityCardSet(communityCards);
+
+        ArrayList<Card> holeA = new ArrayList<>();
+        holeA.add(new Card(14, "Spades"));
+        holeA.add(new Card(14, "Diamonds"));
+        StudPokerHand handA = new StudPokerHand(ccs, holeA);
+
+        ArrayList<Card> holeB = new ArrayList<>();
+        holeB.add(new Card(7, "Hearts"));
+        holeB.add(new Card(4, "Clubs"));
+        StudPokerHand handB = new StudPokerHand(ccs, holeB);
+
+        Testing.assertTrue("Hand B (flush) beats Hand A (pair of aces)", handB.compareTo(handA) > 0);
+    }
+
     public static void main(String[] args) {
         Testing.startTests();
         testConstructor();
@@ -131,6 +155,7 @@ public class StudPokerHandTester {
         testGetIthCard();
         testToString();
         testCompareTo();
+        testFlushBeatsAces();
         Testing.finishTests();
     }
 }
