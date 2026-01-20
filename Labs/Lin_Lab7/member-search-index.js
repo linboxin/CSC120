@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"<Unnamed>","c":"Die","l":"Die()","u":"%3Cinit%3E()"},{"p":"<Unnamed>","c":"Die","l":"Die(int)","u":"%3Cinit%3E(int)"},{"p":"<Unnamed>","c":"Die","l":"getValue()"},{"p":"<Unnamed>","c":"Die","l":"roll()"}];updateSearchResults();

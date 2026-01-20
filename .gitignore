@@ -39,3 +39,9 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Personal/Restricted
+James.pdf
+InClass/
+Labs/
+
