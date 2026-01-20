@@ -1,4 +1,4 @@
-\# CS120 - Programming on Purpose
+# CS120 - Programming on Purpose
 
 
 
